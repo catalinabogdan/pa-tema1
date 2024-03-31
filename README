@@ -1,0 +1,91 @@
+Bogdan Elena-Catalina 321 CC
+TEMA 1 - APROAPE FARA GIGEL-
+
+IMPLEMENTARE: C++
+
+PROBLEMA 1: FERIBOT
+    Pentru a calcula cea mai mica valoare posibila a maximului costurilor
+    necesare traversarii cu fiecare feribot.
+    Respectand structura cautarii binare, plecam de la cel mai mare cost posibil
+    daca am alege sa transportam masinile individual si setam limita superoiara
+    suma tuturor costurilor. Calculam costuri partiale care se incadreaza in 
+    limita valorii medii si numaram feriboturile necesare. Daca avem nevoie de
+    mai multe decat cele k disponibile, crestem suma minima, iar daca mai raman
+    pana la k, scadem suma maxima si salvam valoarea medie ca fiind raspunsul.
+    Cautarea se incheie daca limita inferioara depaseste limita superioara.
+
+PROBLEMA 2: NOSTORY
+    In implementarea primului task sortam cele doua siruri crescator si
+    descrescator, in asa fel incat cele mai mici valori ale primului sir
+    sa fie asezate in pereche cu cele mai mari din al doilea sir si vice-versa.
+    
+    Deoarece primul task permite un numar nelimitat de mutari, rezolvarea 
+    nu este valida pentru un numar finit de mutari. Asadar, ne dorim sa
+    modificam cele mai mici valori care ar fi alese ca fiind maxime cu cele
+    mai mari valori dintre minime conform pozitiilor initiale. Salvam aceste
+    numere in 2 vectori pe care ii sortam -max_values crescator si min_values
+    descrescator, pentru a facilita switch-ul rapid dintre elemente.
+    Parcurgem max_values pana la valoarea maxima moves, adica atat cat ne
+    permite numarul de mutari primit ca argument si pornind de la indexul
+    curent cautam in min_values de la stanga la dreapta o valoare mai mare
+    decat maximul actual. Daca exista, actualizam max_values si o adaugam
+    la suma finala.
+    Astfel, vom obtine suma maxima in raport cu numarul permis de switch-uri.
+
+PROBLEMA 3: SUSHI
+    Pentru a cumpara maxim un platou de fiecare tip, ne folosim de paradigmele
+    programarii dinamice si construim un tablou bidimensional de marime m si B
+    (numarul de obiecte si bugetul total disponibil reprezentat de produsul
+    dintre numarul de persoane si contributia fiecaruia). Calculam suma notelor
+    oferite de toate persoanele pentru fiecare platou pentru a putea gasi
+    varianta optima cu cele mai mari note. Daca aleg sa nu cumpar platoul
+    curent, solutia actuala este solutia de la pasul anterior. Altfel, daca
+    bugetul ramas ne permite achizitionarea, solutia actuala va fi maximul
+    dintre cea veche si cea in care scadem din buget pretul urmatorului 
+    platou si adaugam notele totale ale acestuia. Returnam totalul notelor 
+    celor m obiecte cumparate cu bugetul B, adica dp[m][B].
+
+    Cel de-al doilea task presupune introducerea unei conditii aditionale in
+    implementarea realizata la prima cerinta, verificand daca atunci cand
+    alegem sa achizitionam un platou, exista destui bani in buget si este
+    optim sa mai achizitionam inca un platou de acelasi tip.
+
+    Task-ul al treilea se bazeaza, de asemenea, pe implementarea rezolvarii
+    cerintei anterioare, insa alegem un tabel tridimensional pentru a putea
+    stoca recurente pentru strict n elemente. Indexarea incepe de la numarul
+    total, iar cand se cumpara un platou, numarul de produse disponibile scade.
+
+PROBLEMA 4: SEMNALE
+    Task-ul 1 presupune calcularea tuturor posibilitatilor in care pot fi
+    asezate x zerouri si y cifre de 1 fara a avea 2 de 1 pe pozitii alaturate.
+    Asta rezulta in urmatoarea structura a sirului rezultat - _0_0_0_0_0_ ...
+    Fiecare cifra de 1 va trebui sa aiba in stanga si dreapta ei un 0, deci 
+    exista x + 1 pozitii posibile in care pot fi asezati cei y de 1, ceea ce
+    genereaza un numar total de siruri = combinari de x + 1 luate cate y.
+    Pentru a reusi sa calculam rezultatul, folosim functia comb, care salveaza
+    recursiv rezultatele combinarilor pana la numerele dorite. Formula de
+    recurenta este :
+    C de n luate cate y = C de y - 1 luate cate x - 1 + C de x - 1 luate cate x
+    Tratam cazurile de baza si apelam functia comb in type1 pentru a returna 
+    solutia finala. 
+
+POBLEMA 5: BADGPT
+    Numarul total de variatii ale sirului intial luand in considerare
+    transformarile din nn in m si uu in w va fi rezultatul produsului
+    combinarilor totale de litere in functie de numarul acestora.
+    Observam recurenta dintre rezultatele combinarilor posibile ale cazurilor
+    particulare -combinari(n) = combinari(n-2) + combinari(n-1).
+    Deoarece dorim o implementare cat mai eficienta, alegem abordarea bazata pe
+    exponentierea logaritmica pe matrice (concept prezentat in cel de-al doilea
+    laborator privind programarea dinamica) si construim formula generalizata
+    a recurentei ca fiind 
+         comb[n]          comb[1]         0 0 0
+         comb[n-1] =      comb[2]    *    1 0 1  ^(n-3)
+         comb[n-2]        comb[3]         0 1 1
+    Implementam functiile care calculeaza puterea unei matrice si rezultatul 
+    inmultirii a doua matrice, iar apoi, in solve_gpt calculam rezultatul
+    inmultirii combinarilor de baza (comb[1] = 1; comb[2] = 2; comb[3] =3)
+    cu ultima coloana a matricei ridicata la puterea n-3. Solutiile sunt
+    afisate modulo MOD(10^9 + 7).
+
+    
